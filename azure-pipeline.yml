@@ -81,6 +81,6 @@ stages:
               appType: webAppLinux
               appName: "$(webAppName)"
               resourceGroupName: "$(resourceGroup)"
-              package: "$(Pipeline.Workspace)\\drop\\app\\*.jar"
+              package: "$(Pipeline.Workspace)\\drop\\app\\alerta-cidadao-api-0.0.1-SNAPSHOT.jar"
               runtimeStack: "JAVA|21-java21"
               startUpCommand: "java -jar /home/site/wwwroot/alerta-cidadao-api-0.0.1-SNAPSHOT.jar"
