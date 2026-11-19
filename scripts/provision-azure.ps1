@@ -7,14 +7,13 @@
 param(
     [string]$SubscriptionId = $env:AZURE_SUBSCRIPTION_ID,
     [string]$Location = "brazilsouth",
-    # SP Azure for Students: criar recursos no RG ja existente (nao cria RG novo)
-    [string]$ResourceGroup = "rg-petcare-gs-devops",
-    [string]$SqlServerName = "sql-alerta-gs562279",
+    [string]$ResourceGroup = "rg-alerta-gs-devops",
+    [string]$SqlServerName = "sql-alerta-gs555427",
     [string]$SqlDbName = "alertacidadao",
     [string]$SqlAdminUser = "alertaadmin",
     [Parameter(Mandatory = $true)][string]$SqlAdminPassword,
-    [string]$AppServicePlan = "plan-alerta-gs",
-    [string]$WebAppName = "app-alerta-gs562279",
+    [string]$AppServicePlan = "plan-alerta-gs555427",
+    [string]$WebAppName = "app-alerta-gs555427",
     [string]$AdminEmail = "gestor@alerta.local",
     [string]$AdminSenha = "Gestor@123",
     [Parameter(Mandatory = $true)][string]$JwtSecret

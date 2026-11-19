@@ -1,5 +1,5 @@
 ### AlertaCidadao — CRUD do VIDEO (REST Client)
-@host = https://app-alerta-gs562279.azurewebsites.net
+@host = https://app-alerta-gs555427.azurewebsites.net
 @token = COLE_O_TOKEN_AQUI
 @alertaId = 1
 @atualizacaoId = 1

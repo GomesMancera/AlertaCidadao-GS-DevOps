@@ -12,15 +12,13 @@
 | **Impacto** | Alerta comunitário mais rápido; rastreio do atendimento |
 | **ODS** | **11** Cidades e comunidades sustentáveis · **13** Ação contra a mudança climática |
 
-Alinha ao eixo **Clima e emergências** do documento CitizenTech.
-
 | | |
 |---|---|
 | Aluno | Gabriel Gomes Mancera (RM 555427) |
 | Azure DevOps | https://dev.azure.com/RM555427/AlertaCidadao-GS-DevOps |
-| App | https://app-alerta-gs562279.azurewebsites.net |
-| Health | https://app-alerta-gs562279.azurewebsites.net/health |
-| Resource Group | `rg-petcare-gs-devops` (reutilizado; SP sem permissão de criar RG novo) |
+| App | https://app-alerta-gs555427.azurewebsites.net |
+| Health | https://app-alerta-gs555427.azurewebsites.net/health |
+| Resource Group | `rg-alerta-gs-devops` |
 
 Fluxo DevOps: **Boards → branch → PR → Pipeline CI/CD → App Service → Azure SQL**.
 

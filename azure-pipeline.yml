@@ -11,9 +11,9 @@ pool:
 variables:
   - group: alerta-gs-vars
   - name: webAppName
-    value: app-alerta-gs562279
+    value: app-alerta-gs555427
   - name: resourceGroup
-    value: rg-petcare-gs-devops
+    value: rg-alerta-gs-devops
   - name: azureServiceConnection
     value: azure-alerta-sc
 

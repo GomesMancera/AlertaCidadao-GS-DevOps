@@ -1,6 +1,6 @@
 {
   "descricao": "CRUD JSON — AlertaCidadao (tabelas ac_alerta e ac_atualizacao)",
-  "baseUrl": "https://app-alerta-gs562279.azurewebsites.net",
+  "baseUrl": "https://app-alerta-gs555427.azurewebsites.net",
   "auth": {
     "registrar": {
       "method": "POST",
