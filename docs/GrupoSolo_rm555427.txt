@@ -1,0 +1,14 @@
+Global Solution 2026/2 — DevOps Tools & Cloud Computing
+Projeto: AlertaCidadao (CitizenTech — alerta comunitário de alagamento)
+
+Grupo: Solo (DP)
+Nome: Gabriel Gomes Mancera
+RM: 555427
+E-mail: RM555427@fiap.com.br
+
+Organizacao Azure DevOps: https://dev.azure.com/RM555427
+Projeto: https://dev.azure.com/RM555427/AlertaCidadao-GS-DevOps
+Repositorio: https://dev.azure.com/RM555427/AlertaCidadao-GS-DevOps/_git/AlertaCidadao-GS-DevOps
+Aplicacao AlertaCidadao: https://app-alerta-gs555427.azurewebsites.net
+Health: https://app-alerta-gs555427.azurewebsites.net/health
+Video YouTube: https://youtu.be/zi-IfYD7Q5I
