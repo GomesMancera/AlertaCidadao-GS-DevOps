@@ -11,6 +11,7 @@
 ```mermaid
 flowchart TB
   subgraph client [Cliente]
+    webUi[Front_React_AlertaCidadao]
     apiClient[API_REST_JSON]
   end
   subgraph ado [Azure_DevOps]
@@ -23,6 +24,7 @@ flowchart TB
     webapp[App_Service_Java21]
     sql[Azure_SQL_Database]
   end
+  webUi --> webapp
   apiClient --> webapp
   repos --> ci
   ci -->|artefatos_JAR_testes| cd
@@ -36,6 +38,7 @@ flowchart TB
 ## Componentes
 | Camada | Tecnologia |
 |--------|------------|
+| Front | React + Vite (servido no mesmo App Service) |
 | App | Spring Boot 3.3 / Java 21 / JWT |
 | Persistência | JPA + Flyway + Azure SQL (`ac_*`) |
 | CI/CD | Azure Pipelines (`azure-pipeline.yml`) |
