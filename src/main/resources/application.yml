@@ -1,0 +1,32 @@
+server:
+  port: ${PORT:${WEBSITES_PORT:8080}}
+
+
+spring:
+  application:
+    name: alerta-cidadao-api
+  datasource:
+    url: ${DB_URL:jdbc:h2:mem:alerta;MODE=MSSQLServer;DB_CLOSE_DELAY=-1}
+    username: ${DB_USER:sa}
+    password: ${DB_PASSWORD:}
+    driver-class-name: ${DB_DRIVER:org.h2.Driver}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    open-in-view: false
+    properties:
+      hibernate:
+        dialect: ${HIBERNATE_DIALECT:org.hibernate.dialect.H2Dialect}
+  flyway:
+    enabled: true
+    locations: classpath:db/migration
+
+jwt:
+  secret: ${JWT_SECRET:alerta-cidadao-dev-secret-key-minimo-32-chars!!}
+  access-minutes: 60
+  refresh-days: 7
+
+admin:
+  email: ${ADMIN_EMAIL:gestor@alerta.local}
+  senha: ${ADMIN_SENHA:Gestor@123}
+  nome: ${ADMIN_NOME:Gestor AlertaCidadao}

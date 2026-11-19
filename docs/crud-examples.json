@@ -1,0 +1,57 @@
+{
+  "descricao": "CRUD JSON — AlertaCidadao (tabelas ac_alerta e ac_atualizacao)",
+  "baseUrl": "https://app-alerta-gs562279.azurewebsites.net",
+  "auth": {
+    "registrar": {
+      "method": "POST",
+      "path": "/api/auth/registrar",
+      "body": { "nome": "Cidadao Demo", "email": "cidadao.demo@alerta.local", "senha": "Senha@123" }
+    },
+    "login": {
+      "method": "POST",
+      "path": "/api/auth/login",
+      "body": { "email": "cidadao.demo@alerta.local", "senha": "Senha@123" }
+    }
+  },
+  "headers": {
+    "Authorization": "Bearer <token>",
+    "Content-Type": "application/json"
+  },
+  "ac_alerta": {
+    "create": {
+      "method": "POST",
+      "path": "/api/alertas",
+      "body": { "bairro": "Centro", "descricao": "Alagamento na Rua A", "nivelRisco": "ALTO" }
+    },
+    "read": { "method": "GET", "path": "/api/alertas" },
+    "update": {
+      "method": "PUT",
+      "path": "/api/alertas/1",
+      "body": {
+        "bairro": "Centro",
+        "descricao": "Alagamento atualizado",
+        "nivelRisco": "CRITICO",
+        "status": "EM_ANALISE"
+      }
+    },
+    "delete": { "method": "DELETE", "path": "/api/alertas/1" }
+  },
+  "ac_atualizacao": {
+    "create": {
+      "method": "POST",
+      "path": "/api/atualizacoes",
+      "body": { "alertaId": 1, "mensagem": "Equipe a caminho", "statusNovo": "EM_ATENDIMENTO" }
+    },
+    "read": { "method": "GET", "path": "/api/atualizacoes?alertaId=1" },
+    "update": {
+      "method": "PUT",
+      "path": "/api/atualizacoes/1",
+      "body": { "mensagem": "Rua liberada", "statusNovo": "RESOLVIDO" }
+    },
+    "delete": { "method": "DELETE", "path": "/api/atualizacoes/1" }
+  },
+  "verificacaoBanco": [
+    "SELECT * FROM ac_alerta;",
+    "SELECT * FROM ac_atualizacao;"
+  ]
+}

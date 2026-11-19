@@ -1,0 +1,66 @@
+### AlertaCidadao — CRUD do VIDEO (REST Client)
+@host = https://app-alerta-gs562279.azurewebsites.net
+@token = COLE_O_TOKEN_AQUI
+@alertaId = 1
+@atualizacaoId = 1
+
+### 0) Health
+GET {{host}}/health
+
+### 1) Registrar
+POST {{host}}/api/auth/registrar
+Content-Type: application/json
+
+{ "nome": "Cidadao Video", "email": "cidadao.video@alerta.local", "senha": "Senha@123" }
+
+### 2) Login
+POST {{host}}/api/auth/login
+Content-Type: application/json
+
+{ "email": "cidadao.video@alerta.local", "senha": "Senha@123" }
+
+### 3) CREATE alerta
+POST {{host}}/api/alertas
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "bairro": "Centro", "descricao": "Alagamento CitizenTech", "nivelRisco": "ALTO" }
+
+### 4) READ alertas
+GET {{host}}/api/alertas
+Authorization: Bearer {{token}}
+
+### 5) UPDATE alerta
+PUT {{host}}/api/alertas/{{alertaId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "bairro": "Centro", "descricao": "Alagamento atualizado", "nivelRisco": "CRITICO", "status": "EM_ANALISE" }
+
+### 6) CREATE atualizacao
+POST {{host}}/api/atualizacoes
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "alertaId": {{alertaId}}, "mensagem": "Equipe a caminho", "statusNovo": "EM_ATENDIMENTO" }
+
+### 7) READ atualizacoes
+GET {{host}}/api/atualizacoes?alertaId={{alertaId}}
+Authorization: Bearer {{token}}
+
+### 8) UPDATE atualizacao
+PUT {{host}}/api/atualizacoes/{{atualizacaoId}}
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{ "mensagem": "Em atendimento no local", "statusNovo": "EM_ATENDIMENTO" }
+
+### >>> SELECT no Azure SQL (Parte 8 do roteiro) <<<
+
+### 9) DELETE atualizacao
+DELETE {{host}}/api/atualizacoes/{{atualizacaoId}}
+Authorization: Bearer {{token}}
+
+### 10) DELETE alerta
+DELETE {{host}}/api/alertas/{{alertaId}}
+Authorization: Bearer {{token}}

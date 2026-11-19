@@ -1,0 +1,77 @@
+# Azure Pipelines — CI + CD AlertaCidadao (GS DevOps 2026/2)
+trigger:
+  branches:
+    include:
+      - main
+pr: none
+
+pool:
+  name: Default
+
+variables:
+  - group: alerta-gs-vars
+  - name: webAppName
+    value: app-alerta-gs562279
+  - name: resourceGroup
+    value: rg-petcare-gs-devops
+  - name: azureServiceConnection
+    value: azure-alerta-sc
+
+stages:
+  - stage: Build
+    displayName: "CI — Build, Testes e Artefatos"
+    jobs:
+      - job: BuildTest
+        displayName: Maven Build + Unit Tests
+        steps:
+          - task: Maven@4
+            displayName: mvn test package
+            inputs:
+              mavenPomFile: pom.xml
+              goals: "test package"
+              options: "-B"
+              publishJUnitResults: true
+              testResultsFiles: "**/surefire-reports/TEST-*.xml"
+              javaHomeOption: Path
+              jdkDirectory: "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.12.101-hotspot"
+              mavenVersionOption: Path
+              mavenPath: "C:\\Users\\mance\\tools\\apache-maven-3.9.9"
+
+          - task: CopyFiles@2
+            displayName: Stage JAR
+            inputs:
+              contents: "target\\*.jar"
+              targetFolder: "$(Build.ArtifactStagingDirectory)\\app"
+              flattenFolders: true
+
+          - task: CopyFiles@2
+            displayName: Stage scripts
+            inputs:
+              sourceFolder: scripts
+              contents: "**"
+              targetFolder: "$(Build.ArtifactStagingDirectory)\\scripts"
+
+          - task: PublishBuildArtifacts@1
+            displayName: Publish drop
+            inputs:
+              pathToPublish: "$(Build.ArtifactStagingDirectory)"
+              artifactName: drop
+
+  - stage: Release
+    displayName: "CD — Deploy Azure App Service"
+    dependsOn: Build
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+    jobs:
+      - job: DeployWebApp
+        displayName: Deploy JAR to App Service
+        steps:
+          - download: current
+            artifact: drop
+          - task: AzureWebApp@1
+            displayName: Azure Web App Deploy
+            inputs:
+              azureSubscription: "$(azureServiceConnection)"
+              appName: "$(webAppName)"
+              resourceGroupName: "$(resourceGroup)"
+              package: "$(Pipeline.Workspace)\\drop\\app\\*.jar"
+              runtimeStack: "JAVA|21-java21"
