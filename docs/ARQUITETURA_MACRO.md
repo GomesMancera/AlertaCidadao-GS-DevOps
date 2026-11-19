@@ -1,10 +1,10 @@
-# Arquitetura Macro — AlertaCidadao (CitizenTech / DevOps GS)
+﻿# Arquitetura Macro â€” AlertaCidadao (CitizenTech / DevOps GS)
 
 ## CitizenTech (resumo)
-- **Cidadão:** morador do bairro  
-- **Problema:** alagamento / risco hídrico sem canal de alerta  
-- **Solução:** API de alertas + atualizações de status  
-- **ODS 11** · **ODS 13**
+- **CidadÃ£o:** morador do bairro  
+- **Problema:** alagamento / risco hÃ­drico sem canal de alerta  
+- **SoluÃ§Ã£o:** API de alertas + atualizaÃ§Ãµes de status  
+- **ODS 11** Â· **ODS 13**
 
 ## Diagrama
 
@@ -40,6 +40,7 @@ flowchart TB
 |--------|------------|
 | Front | React + Vite (servido no mesmo App Service) |
 | App | Spring Boot 3.3 / Java 21 / JWT |
-| Persistência | JPA + Flyway + Azure SQL (`ac_*`) |
+| PersistÃªncia | JPA + Flyway + Azure SQL (`ac_*`) |
 | CI/CD | Azure Pipelines (`azure-pipeline.yml`) |
 | IaC | `scripts/provision-azure.ps1` |
+
