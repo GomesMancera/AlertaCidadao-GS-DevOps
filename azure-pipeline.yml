@@ -74,6 +74,31 @@ stages:
         steps:
           - download: current
             artifact: drop
+          - task: PowerShell@2
+            displayName: Rename boot JAR to app.jar
+            inputs:
+              targetType: inline
+              script: |
+                $ErrorActionPreference = "Stop"
+                $src = Get-ChildItem "$(Pipeline.Workspace)\drop\app\*.jar" |
+                  Where-Object { $_.Name -ne "app.jar" -and $_.Name -notlike "*.original" } |
+                  Select-Object -First 1
+                if (-not $src) { throw "Boot JAR not found in drop/app" }
+                Copy-Item $src.FullName "$(Pipeline.Workspace)\drop\app\app.jar" -Force
+                Write-Host "Prepared $($src.Name) as app.jar"
+          - task: AzureCLI@2
+            displayName: Clear custom startup command
+            inputs:
+              azureSubscription: "$(azureServiceConnection)"
+              scriptType: ps
+              scriptLocation: inlineScript
+              inlineScript: |
+                $ErrorActionPreference = "Stop"
+                $sub = az account show --query id -o tsv
+                $bodyPath = Join-Path $env:AGENT_TEMPDIRECTORY "clear-startup.json"
+                Set-Content -Path $bodyPath -Value '{"properties":{"appCommandLine":""}}' -Encoding ascii
+                az rest --method patch --uri "https://management.azure.com/subscriptions/$sub/resourceGroups/$(resourceGroup)/providers/Microsoft.Web/sites/$(webAppName)/config/web?api-version=2023-01-01" --headers "Content-Type=application/json" --body "@$bodyPath"
+                if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           - task: AzureWebApp@1
             displayName: Azure Web App Deploy
             inputs:
@@ -81,6 +106,5 @@ stages:
               appType: webAppLinux
               appName: "$(webAppName)"
               resourceGroupName: "$(resourceGroup)"
-              package: "$(Pipeline.Workspace)\\drop\\app\\alerta-cidadao-api-0.0.1-SNAPSHOT.jar"
+              package: "$(Pipeline.Workspace)\\drop\\app\\app.jar"
               runtimeStack: "JAVA|21-java21"
-              startUpCommand: "java -jar /home/site/wwwroot/alerta-cidadao-api-0.0.1-SNAPSHOT.jar"
