@@ -24,18 +24,25 @@ stages:
       - job: BuildTest
         displayName: Maven Build + Unit Tests
         steps:
-          - task: Maven@4
+          # Script (evita demand "maven" do task Maven@4 no agent self-hosted)
+          - task: PowerShell@2
             displayName: mvn test package
             inputs:
-              mavenPomFile: pom.xml
-              goals: "test package"
-              options: "-B"
-              publishJUnitResults: true
+              targetType: inline
+              script: |
+                $ErrorActionPreference = "Stop"
+                $env:JAVA_HOME = "C:\Program Files\Eclipse Adoptium\jdk-21.0.12.101-hotspot"
+                $mvn = "C:\Users\mance\tools\apache-maven-3.9.9\bin\mvn.cmd"
+                & $mvn -B test package
+                if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+
+          - task: PublishTestResults@2
+            displayName: Publish Surefire results
+            condition: succeededOrFailed()
+            inputs:
+              testResultsFormat: JUnit
               testResultsFiles: "**/surefire-reports/TEST-*.xml"
-              javaHomeOption: Path
-              jdkDirectory: "C:\\Program Files\\Eclipse Adoptium\\jdk-21.0.12.101-hotspot"
-              mavenVersionOption: Path
-              mavenPath: "C:\\Users\\mance\\tools\\apache-maven-3.9.9"
+              failTaskOnFailedTests: true
 
           - task: CopyFiles@2
             displayName: Stage JAR
