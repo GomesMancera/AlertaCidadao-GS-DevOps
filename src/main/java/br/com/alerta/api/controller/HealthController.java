@@ -13,7 +13,7 @@ public class HealthController {
         return Map.of(
                 "status", "UP",
                 "service", "alerta-cidadao-api",
-                "version", "gs-devops-2026-2-video"
+                "version", "gs-devops-20262"
         );
     }
 }

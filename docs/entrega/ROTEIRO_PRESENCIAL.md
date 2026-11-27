@@ -1,4 +1,4 @@
-# Roteiro presencial — AlertaCidadao (10 min · 30 pts)
+image.png# Roteiro presencial — AlertaCidadao (10 min · 30 pts)
 
 **Aluno:** Gabriel Gomes Mancera · RM **555427** · Solo  
 **Turma:** 2TDSPW · DevOps Tools & Cloud Computing  
